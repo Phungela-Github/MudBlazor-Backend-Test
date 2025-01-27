@@ -1,0 +1,77 @@
+{
+  "Version": 1,
+  "Hash": "KsWjs0kReK+kblm0FZmYcOZP3QiPLdz50JwxA55aWS4=",
+  "Source": "ServerApp",
+  "BasePath": "_content/ServerApp",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "ServerApp/wwwroot",
+      "Source": "ServerApp",
+      "ContentRoot": "/Users/sabelogabela/Documents/GitHub/ServerApp/wwwroot/",
+      "BasePath": "_content/ServerApp",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "/Users/sabelogabela/.nuget/packages/mudblazor/8.1.0/staticwebassets/MudBlazor.min.css",
+      "SourceId": "MudBlazor",
+      "SourceType": "Package",
+      "ContentRoot": "/Users/sabelogabela/.nuget/packages/mudblazor/8.1.0/staticwebassets/",
+      "BasePath": "_content/MudBlazor",
+      "RelativePath": "MudBlazor.min.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "/Users/sabelogabela/.nuget/packages/mudblazor/8.1.0/staticwebassets/MudBlazor.min.css"
+    },
+    {
+      "Identity": "/Users/sabelogabela/.nuget/packages/mudblazor/8.1.0/staticwebassets/MudBlazor.min.js",
+      "SourceId": "MudBlazor",
+      "SourceType": "Package",
+      "ContentRoot": "/Users/sabelogabela/.nuget/packages/mudblazor/8.1.0/staticwebassets/",
+      "BasePath": "_content/MudBlazor",
+      "RelativePath": "MudBlazor.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "/Users/sabelogabela/.nuget/packages/mudblazor/8.1.0/staticwebassets/MudBlazor.min.js"
+    },
+    {
+      "Identity": "/Users/sabelogabela/Documents/GitHub/ServerApp/wwwroot/favicon.ico",
+      "SourceId": "ServerApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/sabelogabela/Documents/GitHub/ServerApp/wwwroot/",
+      "BasePath": "_content/ServerApp",
+      "RelativePath": "favicon.ico",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/favicon.ico"
+    }
+  ]
+}

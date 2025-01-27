@@ -1,0 +1,32 @@
+@page "/login"
+@inject NavigationManager Navigation
+@using Microsoft.EntityFrameworkCore
+@inject ApplicationDbContext Context
+@inject UserService UserService
+
+
+<MudContainer>
+    <MudPaper Elevation="3" Class="pa-4">
+        <MudTextField @bind-Value="Username" Label="Username" />
+        <MudTextField @bind-Value="Password" Label="Password" InputType="InputType.Password" />
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="LoginUser">Login</MudButton>
+    </MudPaper>
+</MudContainer>
+
+@code {
+    private string Username { get; set; }
+    private string Password { get; set; }
+
+    private async Task LoginUser()
+    {
+        var user = await UserService.AuthenticateUser(Username, Password);
+        if (user != null)
+        {
+            Navigation.NavigateTo("/");
+        }
+        else
+        {
+            // Handle login failure
+        }
+    }
+}

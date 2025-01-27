@@ -1,0 +1,32 @@
+@page "/register"
+@inject NavigationManager Navigation
+@inject UserService UserService
+@using Microsoft.EntityFrameworkCore
+@inject ApplicationDbContext Context
+
+<MudContainer>
+    <MudPaper Elevation="3" Class="pa-4">
+        <MudTextField @bind-Value="Username" Label="Username" />
+        <MudTextField @bind-Value="Password" Label="Password" InputType="InputType.Password" />
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="RegisterUser">Register</MudButton>
+    </MudPaper>
+</MudContainer>
+
+@code {
+    private string Username { get; set; }
+    private string Password { get; set; }
+
+    private async Task RegisterUser()
+    {
+        var success = await UserService.RegisterUser(Username, Password);
+        if (success)
+        {
+            Navigation.NavigateTo("/login");
+        }
+        else
+        {
+            // Handle registration failure
+            
+        }
+    }
+}
