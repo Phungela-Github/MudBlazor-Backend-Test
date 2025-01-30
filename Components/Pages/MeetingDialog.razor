@@ -1,0 +1,163 @@
+@inject IDialogService DialogService
+@inherits MeetingDialogBase
+@inject MeetingService MeetingService
+@inject NavigationManager Navigation
+@using Microsoft.EntityFrameworkCore
+
+<MudDialogContent class="custom-dialog">
+    <MudText Typo="Typo.h6">Set Up Meeting for @SelectedDate?.ToShortDateString()</MudText>
+    <MudTextField Label="Meeting Title" @bind-Value="meetingTitle" Required="true" Class="mb-2" />
+    <MudTextField Label="Description" @bind-Value="description" Multiline="true" Rows="4" Required="true" />
+    <MudTimePicker Label="Start Time" @bind-Value="startTime"  Class="mt-2 mb-2" Required="true" />
+    <MudTimePicker Label="Start Time" @bind-Value="endTime"  Class="mt-2 mb-2" Required="true" />
+    <!--<MudTextField Label="Add Participants" @bind-Value="MeetingTitle" Required="true" Class="mb-2" /> -->
+    <MudText Typo="Typo.h5">Add Participants</MudText>
+
+    <MudGrid>
+        <MudItem xs="10">
+            <MudAutocomplete T="string"
+                            Label="Select a user"
+                            @bind-Value="SelectedUser"
+                            SearchFunc="SearchUsers"
+                            ResetValueOnEmptySelection="true" />
+        </MudItem>
+        <MudItem xs="2">
+            <MudButton Variant="Variant.Filled"
+                    Color="Color.Primary"
+                    OnClick="AddSelectedUser"
+                    Disabled="@string.IsNullOrEmpty(SelectedUser)">
+                Add User
+            </MudButton>
+        </MudItem>
+    </MudGrid>
+
+    <MudDivider />
+
+    @if (SelectedUsers.Any())
+    {
+        <MudText Typo="Typo.h6">Selected Users:</MudText>
+        <MudList T="string">
+            @foreach (var user in SelectedUsers)
+            {
+                <MudListItem>
+                    <MudText>@user</MudText>
+                    <MudIconButton Icon="@Icons.Material.Filled.Close"
+                                Color="Color.Error"
+                                OnClick="@(() => RemoveUser(user))"
+                                Title="Remove" />
+                </MudListItem>
+            }
+        </MudList>
+    }
+    else
+    {
+        <MudText Typo="Typo.body1">No users selected yet.</MudText>
+    }
+    <MudItem xs="12">
+        <MudFileUpload T="IReadOnlyList<IBrowserFile>" multiple>
+            <ActivatorContent>
+                <MudButton Variant="Variant.Filled" Color="Color.Secondary">Add Meeting Pack</MudButton>
+            </ActivatorContent>
+            <SelectedTemplate>
+                @if (context != null){
+                    @foreach (var file in context){
+                        <MudText>@file.Name</MudText>
+                    }
+                }
+                else{
+                    <MudText>No Files</MudText>
+                }
+            </SelectedTemplate>
+        </MudFileUpload>
+    </MudItem>
+</MudDialogContent>
+<MudDialogActions>
+    <MudButton Variant="Variant.Outlined" OnClick="Cancel">Cancel</MudButton>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="AddMeeting">Save</MudButton>
+</MudDialogActions>
+
+@code {
+    private string meetingTitle { get; set; }
+    private string description { get; set; }
+    private DateTime? meetingDate { get; set; }
+    private DateTime? startTime { get; set; }
+    private DateTime? endTime { get; set; }
+    private string participants { get; set; }
+    //private string meetingPack { get; set; }
+
+    private async Task OpenMeetingDialog()
+    {
+        var parameters = new DialogParameters
+        {
+            { "SelectedDate", SelectedDate }
+        };
+
+        var options = new DialogOptions { CloseButton = true, FullWidth = false };
+
+        var dialog = DialogService.Show<MeetingDialog>("Set Up Meeting", parameters, options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            //Snackbar.Add($"Meeting scheduled successfully for {SelectedDate?.ToShortDateString()}.", Severity.Success);
+        }
+        else
+        {
+            //Snackbar.Add("Meeting setup was cancelled.", Severity.Info);
+        }
+    }
+    // Simulated list of users
+    private List<string> AllUsers = new List<string>
+    {
+        "Alice Johnson", "Bob Smith", "Charlie Davis", "Diana Ross", "Evelyn King"
+    };
+
+    private List<string> SelectedUsers = new();
+    private string SelectedUser;
+
+    // Search function with CancellationToken
+    private Task<IEnumerable<string>> SearchUsers(string value, CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrEmpty(value))
+            return Task.FromResult(AllUsers.AsEnumerable());
+
+        return Task.FromResult(AllUsers.Where(u => u.Contains(value, StringComparison.OrdinalIgnoreCase)));
+    }
+
+    // Add the selected user
+    private void AddSelectedUser()
+    {
+        if (!string.IsNullOrEmpty(SelectedUser) && !SelectedUsers.Contains(SelectedUser))
+        {
+            SelectedUsers.Add(SelectedUser);
+            SelectedUser = string.Empty; // Clear the dropdown
+            StateHasChanged(); // Notify Blazor to re-render
+        }
+    }
+
+    // Remove a user from the selected list
+    private void RemoveUser(string user)
+    {
+        if (SelectedUsers.Contains(user))
+        {
+            SelectedUsers.Remove(user);
+            StateHasChanged(); // Notify Blazor to re-render
+        }
+    }
+    private async Task AddMeeting()
+    {
+        var success = await MeetingService.NewMeeting(meetingTitle, description, SelectedDate, startTime, endTime,participants);
+        if (success)
+        {
+            Navigation.NavigateTo("/login");
+        }
+        else
+        {
+            // Handle registration failure
+            
+        }
+    }
+}
+
+
+

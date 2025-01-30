@@ -1,0 +1,57 @@
+@page "/payments"
+@using ServerApp.Models
+@using ServerApp.Services
+@inject PaymentService PaymentService
+@inject NavigationManager Navigation
+@using Microsoft.EntityFrameworkCore
+
+<MudContainer>
+    <MudText Typo="Typo.h4" GutterBottom="true">Payment Tracker</MudText>
+
+    <MudPaper Elevation="3" Class="pa-4">
+            <MudTextField @bind-Value="purchaseOrder" Label="Payer Name" Required="true" />
+            <MudTextField @bind-Value="paymentAmount" Label="Amount" Required="true" />
+            <MudDatePicker @bind-Date="paymentDate" Label="Payment Date" Required="true" />
+            <MudTextField @bind-Value="paymentType" Label="Description" />
+            <MudTextField @bind-Value="Description" Label="Description" />
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="AddPayment">Add Payment</MudButton>
+       
+    </MudPaper>
+
+   <!-- <MudTable Items="@_payments" Hover="true" Breakpoint="Breakpoint.None" Class="mt-4">
+        <HeaderContent>
+            <MudTh>Payer Name</MudTh>
+            <MudTh>Amount</MudTh>
+            <MudTh>Payment Date</MudTh>
+            <MudTh>Description</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Payer Name">@context.purchaseOrder</MudTd>
+            <MudTd DataLabel="Amount">@context.paymentAmount.ToString("C")</MudTd>
+            <MudTd DataLabel="Payment Date">@context.paymentDate</MudTd>
+            <MudTd DataLabel="Description">@context.Description</MudTd>
+        </RowTemplate>
+    </MudTable> -->
+</MudContainer>
+
+@code {
+    private string purchaseOrder { get; set; }
+    private decimal paymentAmount { get; set; }
+    private DateTime? paymentDate { get; set; }
+    private string paymentType { get; set; }
+    private string Description { get; set; }
+
+    private async Task AddPayment()
+    {
+        var success = await PaymentService.NewPayment(purchaseOrder, paymentAmount, paymentDate, paymentType, Description);
+        if (success)
+        {
+            Navigation.NavigateTo("/login");
+        }
+        else
+        {
+            // Handle registration failure
+            
+        }
+    }
+}

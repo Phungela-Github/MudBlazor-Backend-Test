@@ -19,7 +19,7 @@ namespace ServerApp.Services
             if (_context.Users.Any(u => u.Username == username))
                 return false;
 
-            var user = new NewUser
+            var user = new User
             {
                 Username = username,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(password)
@@ -30,7 +30,7 @@ namespace ServerApp.Services
             return true;
         }
 
-        public async Task<NewUser> AuthenticateUser(string username, string password)
+        public async Task<User> AuthenticateUser(string username, string password)
         {
             var user = await _context.Users.SingleOrDefaultAsync(u => u.Username == username);
 

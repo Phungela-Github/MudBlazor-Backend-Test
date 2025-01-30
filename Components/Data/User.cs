@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+
 namespace ServerApp.Data
 {
     public class User

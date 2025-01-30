@@ -1,0 +1,130 @@
+@page "/travel"
+@inherits TravelBase
+@inject TravelService TravelService
+@inject NavigationManager Navigation
+@using Microsoft.EntityFrameworkCore
+
+<MudContainer>
+    <MudCard>
+        <MudCardContent>
+            <MudText Typo="Typo.h5" Class="mb-3">Travel Request Form</MudText>
+
+            <!-- Travel Request Form -->
+            <!--<MudForm @ref="form" Model="newTravel" Class="mb-4">-->
+                <MudGrid Spacing="3">
+                    <MudItem xs="12" sm="6">
+                        <MudTextField @bind-Value="destination" Label="Destination" Required="true" />
+                    </MudItem>
+                    <MudItem xs="12" sm="6">
+                        <MudDatePicker @bind-Date="departureDate" Label="Departure Date" Required="true" />
+                    </MudItem>
+                    <MudItem xs="12" sm="6">
+                        <MudDatePicker @bind-Date="returnDate" Label="Return Date" Required="true" />
+                    </MudItem>
+                    <MudItem xs="12" sm="6">
+                        <MudSelect @bind-Value="type" Label="Travel Type" Required="true">
+                            @foreach (var type in _type)
+                            {
+                                <MudSelectItem Value="type">@type</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="6">
+                        <MudSelect @bind-Value="airline" Label="Preferred Airline" Required="true">
+                            @foreach (var state in _states)
+                            {
+                                <MudSelectItem Value="state">@state</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                    <MudItem xs="12" sm="6">
+                       <MudFileUpload T="IReadOnlyList<IBrowserFile>" multiple>
+                        <ActivatorContent>
+                            <MudButton Variant="Variant.Filled"
+                                    Color="Color.Secondary">
+                                Add Supporting Documents
+                            </MudButton>
+                        </ActivatorContent>
+                        <SelectedTemplate>
+                            @if (context != null)
+                            {
+                                @foreach (var file in context)
+                                {
+                                    <MudText>@file.Name</MudText>
+                                }
+                            }
+                            else
+                            {
+                                <MudText>No Files</MudText>
+                            }
+                        </SelectedTemplate>
+                    </MudFileUpload>
+                    </MudItem>
+                    <MudItem xs="12">
+                        <MudTextField @bind-Value="motivation" Label="Motivation" Required="true" Lines="4" />
+                    </MudItem>
+                    <MudItem xs="12">
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="NewTravel">
+                            Submit Request
+                        </MudButton>
+                    </MudItem>
+                </MudGrid>
+            <!--</MudForm>-->
+
+            <!-- Table to Display Submitted Travel Requests -->
+            <MudTable Items="travelList" Hover="true" Class="mt-4">
+                <HeaderContent>
+                    <MudTh>Destination</MudTh>
+                    <MudTh>Departure Date</MudTh>
+                    <MudTh>Return Date</MudTh>
+                    <MudTh>Travel Type</MudTh>
+                    <MudTh>Preferred Airline</MudTh>
+                    <MudTh>Motivation</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd>@context.Destination</MudTd>
+                    <MudTd>@context.DepartureDate?.ToString("yyyy-MM-dd")</MudTd>
+                    <MudTd>@context.ReturnDate?.ToString("yyyy-MM-dd")</MudTd>
+                    <MudTd>@context.TravelType</MudTd>
+                    <MudTd>@context.PreferredAirline</MudTd>
+                    <MudTd>@context.Motivation</MudTd>
+                </RowTemplate>
+            </MudTable>
+        </MudCardContent>
+    </MudCard>
+</MudContainer>
+
+
+@code {
+    private string destination { get; set; }
+    private DateTime? departureDate{ get; set; }
+    private DateTime? returnDate { get; set; }
+    private string type { get; set; }
+    private string airline { get; set; }
+    private string motivation { get; set; }
+
+    string _value, _types;
+
+    private string[] _states =
+    {
+        "SAA", "Fly Safair", "British Airways"
+    };
+    private string[] _type =
+    {
+        "Single", "Group"
+    };
+
+    private async Task NewTravel()
+    {
+        var success = await TravelService.AddTravel(destination, departureDate, returnDate, type, airline, motivation);
+        if (success)
+        {
+            Navigation.NavigateTo("/login");
+        }
+        else
+        {
+            // Handle registration failure
+            
+        }
+    }
+}

@@ -2,6 +2,7 @@ using MudBlazor.Services;
 using ServerApp.Components;
 using ServerApp.Data;
 using ServerApp.Services;
+using ServerApp.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Register UserService
 builder.Services.AddScoped<UserService>();
+
+builder.Services.AddScoped<PaymentService>();
+
+builder.Services.AddScoped<MeetingService>();
+
+builder.Services.AddScoped<TravelService>();
 
 var app = builder.Build();
 
