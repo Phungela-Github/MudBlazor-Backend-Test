@@ -18,20 +18,20 @@
        
     </MudPaper>
 
-   <!-- <MudTable Items="@_payments" Hover="true" Breakpoint="Breakpoint.None" Class="mt-4">
-        <HeaderContent>
-            <MudTh>Payer Name</MudTh>
-            <MudTh>Amount</MudTh>
-            <MudTh>Payment Date</MudTh>
-            <MudTh>Description</MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd DataLabel="Payer Name">@context.purchaseOrder</MudTd>
-            <MudTd DataLabel="Amount">@context.paymentAmount.ToString("C")</MudTd>
-            <MudTd DataLabel="Payment Date">@context.paymentDate</MudTd>
-            <MudTd DataLabel="Description">@context.Description</MudTd>
-        </RowTemplate>
-    </MudTable> -->
+    <MudTable Items="payments" Dense="true">
+            <HeaderContent>
+                <MudTh>Purchase Order</MudTh>
+                <MudTh>Amount</MudTh>
+                <MudTh>Date</MudTh>
+                <MudTh>Description</MudTh>
+            </HeaderContent>
+            <RowTemplate Context="payment">
+                <MudTd>@payment.purchaseOrder</MudTd>
+                <MudTd>@payment.paymentAmount</MudTd>
+                <MudTd>@payment.paymentDate</MudTd>
+                <MudTd>@payment.Description</MudTd>
+            </RowTemplate>
+        </MudTable>
 </MudContainer>
 
 @code {
@@ -40,6 +40,13 @@
     private DateTime? paymentDate { get; set; }
     private string paymentType { get; set; }
     private string Description { get; set; }
+
+    private List<Payment> payments = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        payments = await PaymentService.GetPaymentsAsync();
+    }
 
     private async Task AddPayment()
     {

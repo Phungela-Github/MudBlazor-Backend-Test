@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ServerApp.Models;
 using Microsoft.EntityFrameworkCore;
+using Dapper;
 
 namespace ServerApp.Services
 {
@@ -15,22 +16,28 @@ namespace ServerApp.Services
         {
             _context = context;
         }
-         public async Task<bool> NewMeeting(string meetingTitle, string description, DateTime? meetingDate, DateTime? start, DateTime? end,string participants)
+         public async Task<bool> NewMeeting(string meetingTitle, string description, DateTime? meetingDate, TimeSpan start, TimeSpan end,string participants)
         {
             var meeting = new Meeting
             {
-                Title = meetingTitle,
+                
                 Description = description,
-                MeetingDate  = meetingDate,
-                Start = start,
                 End = end,
-                Participants = participants,
-                MeetingPack = "test"
+                MeetingDate  = meetingDate,
+                MeetingPack = "test",
+                Participants = "test",
+                Start = start,
+                Title = meetingTitle
             };
 
             _context.Meetings.Add(meeting);
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<List<Meeting>> GetMeetingsAsync()
+        {
+            return await _context.Meetings.ToListAsync();
         }
 
     }

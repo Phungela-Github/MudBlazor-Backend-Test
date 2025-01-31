@@ -32,6 +32,10 @@ namespace ServerApp.Services
             await _context.SaveChangesAsync();
             return true;
         }
+        public async Task<List<Travel>> GetTravelsAsync()
+        {
+            return await _context.Travels.ToListAsync();
+        }
 
     }
 

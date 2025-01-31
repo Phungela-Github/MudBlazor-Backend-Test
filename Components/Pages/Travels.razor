@@ -1,5 +1,7 @@
 @page "/travel"
-@inherits TravelBase
+@using ServerApp.Models
+@using ServerApp.Data
+@using ServerApp.Services
 @inject TravelService TravelService
 @inject NavigationManager Navigation
 @using Microsoft.EntityFrameworkCore
@@ -37,7 +39,7 @@
                             }
                         </MudSelect>
                     </MudItem>
-                    <MudItem xs="12" sm="6">
+                    <!--<MudItem xs="12" sm="6">
                        <MudFileUpload T="IReadOnlyList<IBrowserFile>" multiple>
                         <ActivatorContent>
                             <MudButton Variant="Variant.Filled"
@@ -59,7 +61,7 @@
                             }
                         </SelectedTemplate>
                     </MudFileUpload>
-                    </MudItem>
+                    </MudItem>-->
                     <MudItem xs="12">
                         <MudTextField @bind-Value="motivation" Label="Motivation" Required="true" Lines="4" />
                     </MudItem>
@@ -72,22 +74,20 @@
             <!--</MudForm>-->
 
             <!-- Table to Display Submitted Travel Requests -->
-            <MudTable Items="travelList" Hover="true" Class="mt-4">
+            <MudTable Items="travels" Hover="true" Class="mt-4">
                 <HeaderContent>
                     <MudTh>Destination</MudTh>
                     <MudTh>Departure Date</MudTh>
                     <MudTh>Return Date</MudTh>
                     <MudTh>Travel Type</MudTh>
                     <MudTh>Preferred Airline</MudTh>
-                    <MudTh>Motivation</MudTh>
                 </HeaderContent>
-                <RowTemplate>
-                    <MudTd>@context.Destination</MudTd>
-                    <MudTd>@context.DepartureDate?.ToString("yyyy-MM-dd")</MudTd>
-                    <MudTd>@context.ReturnDate?.ToString("yyyy-MM-dd")</MudTd>
-                    <MudTd>@context.TravelType</MudTd>
-                    <MudTd>@context.PreferredAirline</MudTd>
-                    <MudTd>@context.Motivation</MudTd>
+                <RowTemplate Context="travel">
+                    <MudTd>@travel.Destination</MudTd>
+                    <MudTd>@travel.DepartureDate?.ToShortDateString()</MudTd>
+                    <MudTd>@travel.ReturnDate?.ToShortDateString()</MudTd>
+                    <MudTd>@travel.Type</MudTd>
+                    <MudTd>@travel.Airline</MudTd>
                 </RowTemplate>
             </MudTable>
         </MudCardContent>
@@ -113,6 +113,13 @@
     {
         "Single", "Group"
     };
+
+    private List<Travel> travels = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        travels = await TravelService.GetTravelsAsync();
+    }
 
     private async Task NewTravel()
     {

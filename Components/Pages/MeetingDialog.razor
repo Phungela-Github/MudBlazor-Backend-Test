@@ -3,13 +3,14 @@
 @inject MeetingService MeetingService
 @inject NavigationManager Navigation
 @using Microsoft.EntityFrameworkCore
+@using Dapper
 
 <MudDialogContent class="custom-dialog">
     <MudText Typo="Typo.h6">Set Up Meeting for @SelectedDate?.ToShortDateString()</MudText>
     <MudTextField Label="Meeting Title" @bind-Value="meetingTitle" Required="true" Class="mb-2" />
     <MudTextField Label="Description" @bind-Value="description" Multiline="true" Rows="4" Required="true" />
-    <MudTimePicker Label="Start Time" @bind-Value="startTime"  Class="mt-2 mb-2" Required="true" />
-    <MudTimePicker Label="Start Time" @bind-Value="endTime"  Class="mt-2 mb-2" Required="true" />
+    <MudTimePicker Label="Start Time" @bind-Value="startTime" Class="mt-2 mb-2" Required="true" />
+    <MudTimePicker Label="End Time" @bind-Value="endTime" Class="mt-2 mb-2" Required="true" />
     <!--<MudTextField Label="Add Participants" @bind-Value="MeetingTitle" Required="true" Class="mb-2" /> -->
     <MudText Typo="Typo.h5">Add Participants</MudText>
 
@@ -80,8 +81,8 @@
     private string meetingTitle { get; set; }
     private string description { get; set; }
     private DateTime? meetingDate { get; set; }
-    private DateTime? startTime { get; set; }
-    private DateTime? endTime { get; set; }
+    private TimeSpan startTime { get; set; }
+    private TimeSpan endTime { get; set; }
     private string participants { get; set; }
     //private string meetingPack { get; set; }
 
@@ -146,6 +147,7 @@
     }
     private async Task AddMeeting()
     {
+        //Console.WriteLine(endTime);
         var success = await MeetingService.NewMeeting(meetingTitle, description, SelectedDate, startTime, endTime,participants);
         if (success)
         {

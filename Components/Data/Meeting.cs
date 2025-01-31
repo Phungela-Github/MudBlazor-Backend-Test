@@ -11,8 +11,8 @@ namespace ServerApp.Components.Data
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime? Date { get; set; }
-        public TimeSpan? StartTime { get; set; }
-        public TimeSpan? EndTime  { get; set; }
+        public TimeSpan StartTime { get; set; }
+        public TimeSpan EndTime  { get; set; }
         public string Participants { get; set; }
         public string Files { get; set; }
     }

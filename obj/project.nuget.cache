@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "DgICf5Pbnu1IA8pu33hDyOiVpkCa8kCfBA+sFiNaV+o9639CuvyuWEAxJ6vMJyck1dS0ybditX3MAUGeN+FAMw==",
+  "dgSpecHash": "EstD/wHOizyPODHJ5FVqAuyFXdLg9HdRI768eNMqSKza6P0Ec9c66dsdjXdwn7KLoZkRbs41SVUJw9pmvcBZBQ==",
   "success": true,
   "projectFilePath": "/Users/sabelogabela/Documents/GitHub/ServerApp/ServerApp.csproj",
   "expectedPackageFiles": [
     "/Users/sabelogabela/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/Users/sabelogabela/.nuget/packages/bouncycastle.cryptography/2.3.1/bouncycastle.cryptography.2.3.1.nupkg.sha512",
+    "/Users/sabelogabela/.nuget/packages/dapper/2.1.35/dapper.2.1.35.nupkg.sha512",
     "/Users/sabelogabela/.nuget/packages/google.protobuf/3.26.1/google.protobuf.3.26.1.nupkg.sha512",
     "/Users/sabelogabela/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/Users/sabelogabela/.nuget/packages/k4os.compression.lz4/1.3.8/k4os.compression.lz4.1.3.8.nupkg.sha512",

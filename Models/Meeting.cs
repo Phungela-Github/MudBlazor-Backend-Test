@@ -6,8 +6,8 @@ namespace ServerApp.Models
         public string Title { get; set; }
         public string Description{ get; set; }
         public DateTime? MeetingDate{ get; set; }
-        public DateTime? Start { get; set; }
-        public DateTime? End { get; set; }
+        public TimeSpan Start { get; set; }
+        public TimeSpan End { get; set; }
         public string Participants { get; set; } 
         public string MeetingPack { get; set; }
     }

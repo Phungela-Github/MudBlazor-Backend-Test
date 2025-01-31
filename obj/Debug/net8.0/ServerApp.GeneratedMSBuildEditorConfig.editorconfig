@@ -49,12 +49,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Mb2dpbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/sabelogabela/Documents/GitHub/ServerApp/Components/Pages/Meeting.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9NZWV0aW5nLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
 [/Users/sabelogabela/Documents/GitHub/ServerApp/Components/Pages/MeetingDialog.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9NZWV0aW5nRGlhbG9nLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/sabelogabela/Documents/GitHub/ServerApp/Components/Pages/Meetings.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9NZWV0aW5ncy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/sabelogabela/Documents/GitHub/ServerApp/Components/Pages/Payments.razor]
@@ -65,8 +65,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9SZWdpc3Rlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/sabelogabela/Documents/GitHub/ServerApp/Components/Pages/Travel.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9UcmF2ZWwucmF6b3I=
+[/Users/sabelogabela/Documents/GitHub/ServerApp/Components/Pages/Travels.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9UcmF2ZWxzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/sabelogabela/Documents/GitHub/ServerApp/Components/Pages/Weather.razor]

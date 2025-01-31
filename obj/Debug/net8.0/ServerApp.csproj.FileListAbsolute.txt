@@ -136,3 +136,4 @@
 /Users/sabelogabela/Documents/GitHub/ServerApp/bin/Debug/net8.0/runtimes/win-x64/native/krbcc64.dll
 /Users/sabelogabela/Documents/GitHub/ServerApp/bin/Debug/net8.0/runtimes/browser/lib/net8.0/System.Text.Encodings.Web.dll
 /Users/sabelogabela/Documents/GitHub/ServerApp/bin/Debug/net8.0/runtimes/win/lib/net8.0/System.Windows.Extensions.dll
+/Users/sabelogabela/Documents/GitHub/ServerApp/bin/Debug/net8.0/Dapper.dll
